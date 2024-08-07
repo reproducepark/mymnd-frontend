@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 
 const cameraWidth = 185;
 const circleWidth = 244;
-const marginCC = 90;
 
 const Camera = styled.img`
     width: ${cameraWidth}px;

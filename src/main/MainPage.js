@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import bg_wodate from "../images/bg_wodate_scale.png"
 import ShowCamera from './ShowCamera';
 import ShowDate from './ShowDate';
+import ShowDateDiff from './ShowDateDiff'
 import { useState } from 'react';
 
 const Container = styled.div`
@@ -13,13 +14,14 @@ const Container = styled.div`
 `;
 
 function MainPage() {
-    const [installedDate, setInstalledDate] = useState(new Date(2024, 8, 7, 18, 11, 0));
-    const [lockedDate, setLockedDate] = useState(new Date(2024, 8, 7, 18, 11, 0));
+    const [installedDate, setInstalledDate] = useState(new Date(2024, 7, 6, 20, 11, 0));
+    const [lockedDate, setLockedDate] = useState(new Date(2024, 3, 26, 21, 13, 0));
 
     return (
         <Container>
             <ShowCamera/>
             <ShowDate installedDate={installedDate} lockedDate={lockedDate}/>
+            <ShowDateDiff lockedDate={lockedDate}/>
         </Container>
     );
 }
