@@ -12,7 +12,7 @@ const Camera = styled.img`
     width: ${cameraWidth}px;
     height: ${cameraWidth}px;
     position: absolute;
-    top: 50%;
+    top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 100%;
@@ -22,7 +22,7 @@ const Circle = styled.img`
     width: ${circleWidth}px;
     height: ${circleWidth}px;
     position: absolute;
-    top: 50%;
+    top: 57%;
     left: 50%;
     border-radius: 100%;
 `;
