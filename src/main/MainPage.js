@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import bg_wodate from "../images/bg_wodate.png"
+import bg_wodate from "../images/bg_wodate_scale.png"
+import ShowCamera from './ShowCamera';
 
 const Container = styled.div`
   background-image: url(${bg_wodate});
@@ -12,6 +13,7 @@ const Container = styled.div`
 function MainPage() {
     return (
         <Container>
+            <ShowCamera/>
         </Container>
     );
 }
