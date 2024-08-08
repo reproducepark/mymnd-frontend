@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 import styled from 'styled-components';
-import { useRef } from 'react';
+import { useRef} from 'react';
 import "react-datepicker/dist/react-datepicker.module.css"
 import mndLogo from '../images/mnd.webp'
 
@@ -17,8 +17,7 @@ const Modal = styled.div`
   box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  transition: transform 0.5s ease-in-out;
-  transform: ${({ showModal }) => (showModal > 2 ? 'translateY(0)' : 'translateY(100%)')};
+  transform: translateY(0);
 `;
 
 const Button = styled.button`
@@ -68,7 +67,7 @@ const Warn = styled.p`
   width: 80%;
 `
 
-const DatePickerModal = ({ showModal, setShowModal, installedDate, setInstalledDate, lockedDate, setLockedDate }) => {
+const DatePickerModal = ({ setShowModal, installedDate, setInstalledDate, lockedDate, setLockedDate }) => {
   const [tempInstalledDate, setTempInstalledDate] = useState(installedDate);
   const [tempLockedDate, setTempLockedDate] = useState(lockedDate);
 
@@ -82,7 +81,7 @@ const DatePickerModal = ({ showModal, setShowModal, installedDate, setInstalledD
   }
 
   return (
-    <Modal showModal={showModal}>
+    <Modal>
       <DatePickerBtn
         oriDate={installedDate}
         setTempDate={setTempInstalledDate}
