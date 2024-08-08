@@ -34,9 +34,6 @@ function MainPage() {
         if (showModal < 3) {
             setShowModal(showModal + 1);
         }
-        else {
-            setShowModal(0);
-        }
     }
     return (
         <Container>
@@ -44,12 +41,13 @@ function MainPage() {
             <ShowDate installedDate={installedDate} lockedDate={lockedDate} />
             <ShowDateDiff lockedDate={lockedDate} />
             <HiddenButton onClick={toggleModal} />
-            {showModal > 1 && <DatePickerModal
+            <DatePickerModal
                 installedDate={installedDate}
                 setInstalledDate={setInstalledDate}
                 lockedDate={lockedDate}
                 setLockedDate={setLockedDate}
-                showModal={showModal > 0} />}
+                showModal={showModal > 2}
+                setShowModal={setShowModal}/>
         </Container>
     );
 }
