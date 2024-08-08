@@ -46,7 +46,7 @@ function MainPage() {
                 setInstalledDate={setInstalledDate}
                 lockedDate={lockedDate}
                 setLockedDate={setLockedDate}
-                showModal={showModal > 2}
+                showModal={showModal}
                 setShowModal={setShowModal}/>
         </Container>
     );

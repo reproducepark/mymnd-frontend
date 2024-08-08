@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import styled from 'styled-components';
 import { useRef } from 'react';
 import "react-datepicker/dist/react-datepicker.module.css"
@@ -18,7 +18,7 @@ const Modal = styled.div`
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   transition: transform 0.5s ease-in-out;
-  transform: ${({ showModal }) => (showModal ? 'translateY(0)' : 'translateY(100%)')};
+  transform: ${({ showModal }) => (showModal > 2 ? 'translateY(0)' : 'translateY(100%)')};
 `;
 
 const Button = styled.button`
@@ -84,11 +84,11 @@ const DatePickerModal = ({ showModal, setShowModal, installedDate, setInstalledD
   return (
     <Modal showModal={showModal}>
       <DatePickerBtn
-        tempDate={tempInstalledDate}
+        oriDate={installedDate}
         setTempDate={setTempInstalledDate}
         title="설치일시 변경"/>
       <DatePickerBtn
-        tempDate={tempLockedDate}
+        oriDate={lockedDate}
         setTempDate={setTempLockedDate}
         title="차단일시 변경"/>
       <Button onClick={()=>linkRef1.current.click()}>
@@ -122,7 +122,7 @@ const DatePickerModal = ({ showModal, setShowModal, installedDate, setInstalledD
   )
 }
 
-const DatePickerBtn = ({ tempDate, setTempDate, title, saveDate }) => {
+const DatePickerBtn = memo(({ oriDate, setTempDate, title}) => {
   const datePickerRef = useRef(null);
 
   const DateTimeInput = styled.input`
@@ -154,7 +154,7 @@ const DatePickerBtn = ({ tempDate, setTempDate, title, saveDate }) => {
       <DateTimeInput
         ref={datePickerRef}
         type="datetime-local"
-        value={formatDate(tempDate)}
+        value={formatDate(oriDate)}
         onChange={handleChange}
       />
       <Button onClick={() => { datePickerRef.current.focus() }}>
@@ -163,6 +163,6 @@ const DatePickerBtn = ({ tempDate, setTempDate, title, saveDate }) => {
     </>
 
   )
-}
+})
 
 export default DatePickerModal;
