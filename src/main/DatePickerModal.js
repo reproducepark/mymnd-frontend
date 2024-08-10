@@ -1,7 +1,6 @@
 import React, { memo, useState } from 'react';
 import styled from 'styled-components';
 import { useRef} from 'react';
-import "react-datepicker/dist/react-datepicker.module.css"
 import mndLogo from '../images/mnd.webp'
 
 const Modal = styled.div`
