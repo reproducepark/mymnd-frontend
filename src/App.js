@@ -1,14 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import MainPage from './main/MainPage';
-import { Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './login/LoginPage';
+import { checkAuth } from './checkAuth';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  console.log(isAuthenticated)
+
+  useEffect(() => {
+    const authenticate = async () => {
+      const result = await checkAuth();
+      setIsAuthenticated(result);
+    };
+
+    authenticate();
+  }, []);
+
   return (
     <Routes>
-      <Route path="/" element = {<MainPage/>} />
-      <Route path="/login" element = {<LoginPage/>} />
+      <Route path="/" element={isAuthenticated ? <MainPage /> : <Navigate to="/login" />} />
+      <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />} />
     </Routes>
   );
 }

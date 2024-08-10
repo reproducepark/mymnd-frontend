@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import mndLogo from '../images/mnd.png';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     background-color: #252525;
@@ -57,21 +59,51 @@ const Button = styled.button`
 `;
 
 const LoginPage = () => {
-    return (
-        <>
-            <Helmet>
-                <meta name="theme-color" content="#252525" />
-            </Helmet>
-            <Container>
-                <LogoContainer>
-                    <MndLogo src={mndLogo} alt="MND Logo" />
-                    <Logo>꾹방모바일보안</Logo>
-                    <Input type="text" placeholder="부여받은 코드를 입력하세요" />
-                    <Button>확인</Button>
-                </LogoContainer>
-            </Container>
-        </>
-    )
+  const [code, setCode] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/authenticate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        window.location.reload();
+      } else {
+        alert('Invalid code');
+      }
+    } catch (error) {
+      console.error('Authentication failed:', error);
+      alert('Authentication error');
+    }
+  };
+
+  return (
+    <>
+      <Helmet>
+        <meta name="theme-color" content="#252525" />
+      </Helmet>
+      <Container>
+        <LogoContainer>
+          <MndLogo src={mndLogo} alt="MND Logo" />
+          <Logo>꾹방모바일보안</Logo>
+          <form onSubmit={handleSubmit}>
+            <Input
+              type="text"
+              placeholder="부여받은 코드를 입력하세요"
+              value={code}
+              onChange={(e) => setCode(e.target.value)} />
+            <Button type="submit">확인</Button>
+          </form>
+        </LogoContainer>
+      </Container>
+    </>
+  )
 }
 
 export default LoginPage;
