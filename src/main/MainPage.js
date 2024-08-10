@@ -6,6 +6,7 @@ import ShowDate from './ShowDate';
 import ShowDateDiff from './ShowDateDiff'
 import { useState, useEffect } from 'react';
 import DatePickerModal from './DatePickerModal';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
     background-image: url(${bg_wodate});
@@ -40,7 +41,7 @@ function MainPage() {
     useEffect(() => {
         localStorage.setItem('installedDate', JSON.stringify(installedDate));
         localStorage.setItem('lockedDate', JSON.stringify(lockedDate));
-      }, [installedDate, lockedDate]);
+    }, [installedDate, lockedDate]);
 
     const toggleModal = () => {
         if (showModal < 3) {
@@ -48,19 +49,24 @@ function MainPage() {
         }
     }
     return (
-        <Container>
-            <ShowCamera />
-            <ShowDate installedDate={installedDate} lockedDate={lockedDate} />
-            <ShowDateDiff lockedDate={lockedDate} />
-            <HiddenButton onClick={toggleModal} />
-            {showModal > 2 && <DatePickerModal
-                installedDate={installedDate}
-                setInstalledDate={setInstalledDate}
-                lockedDate={lockedDate}
-                setLockedDate={setLockedDate}
-                showModal={showModal}
-                setShowModal={setShowModal}/>}
-        </Container>
+        <>
+            <Helmet>
+                <meta name="theme-color" content="#deaa3c" />
+            </Helmet>
+            <Container>
+                <ShowCamera />
+                <ShowDate installedDate={installedDate} lockedDate={lockedDate} />
+                <ShowDateDiff lockedDate={lockedDate} />
+                <HiddenButton onClick={toggleModal} />
+                {showModal > 2 && <DatePickerModal
+                    installedDate={installedDate}
+                    setInstalledDate={setInstalledDate}
+                    lockedDate={lockedDate}
+                    setLockedDate={setLockedDate}
+                    showModal={showModal}
+                    setShowModal={setShowModal} />}
+            </Container>
+        </>
     );
 }
 
