@@ -4,7 +4,7 @@ import bg_wodate from "../images/bg_wodate_scale.png"
 import ShowCamera from './ShowCamera';
 import ShowDate from './ShowDate';
 import ShowDateDiff from './ShowDateDiff'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DatePickerModal from './DatePickerModal';
 
 const Container = styled.div`
@@ -26,10 +26,21 @@ const HiddenButton = styled.button`
     transform: translate(-50%, -50%);
 `
 
+
 function MainPage() {
-    const [installedDate, setInstalledDate] = useState(new Date(2024, 7, 6, 20, 11, 0));
-    const [lockedDate, setLockedDate] = useState(new Date(2024, 3, 26, 21, 13, 0));
+    function getInitialDate(key) {
+        const savedDate = localStorage.getItem(key);
+        return savedDate !== null ? new Date(JSON.parse(savedDate)) : new Date(2024, 7, 6, 20, 11, 0);
+    }
+
+    const [installedDate, setInstalledDate] = useState(getInitialDate('installedDate'));
+    const [lockedDate, setLockedDate] = useState(getInitialDate('lockedDate'));
     const [showModal, setShowModal] = useState(0);
+
+    useEffect(() => {
+        localStorage.setItem('installedDate', JSON.stringify(installedDate));
+        localStorage.setItem('lockedDate', JSON.stringify(lockedDate));
+      }, [installedDate, lockedDate]);
 
     const toggleModal = () => {
         if (showModal < 3) {
